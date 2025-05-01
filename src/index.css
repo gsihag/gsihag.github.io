@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -97,5 +98,62 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-100 dark:bg-slate-800;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-300 dark:bg-slate-600 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-400 dark:bg-slate-500;
+  }
+}
+
+/* Custom classes for interactive elements */
+@layer components {
+  .interactive-card {
+    @apply transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-researcher-blue to-researcher-teal bg-clip-text text-transparent;
+  }
+  
+  .section-title {
+    @apply text-3xl font-bold mb-6;
+  }
+  
+  .highlight-link {
+    @apply relative inline-block text-researcher-blue;
+  }
+  
+  .highlight-link::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-researcher-blue transition-all duration-300;
+  }
+  
+  .highlight-link:hover::after {
+    @apply w-full;
+  }
+}
+
+/* Custom utilities */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .text-pretty {
+    text-wrap: pretty;
   }
 }
