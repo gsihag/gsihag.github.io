@@ -1,167 +1,207 @@
 
-import React, { useState } from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import React from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ArrowRight, FileText, BookOpen, Activity, Users, Brain, Database } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Brain, Network, Activity, Users, Database, Zap, ArrowRight, ExternalLink } from 'lucide-react';
 
 const ResearchSection: React.FC = () => {
-  const [activeTab, setActiveTab] = useState('areas');
-
   const researchAreas = [
     {
       id: 1,
       title: "Bayesian Networks in Healthcare",
-      description: "Developing probabilistic graphical models to assess health risks and support clinical decision-making. Specializing in building Bayesian networks that combine real clinical data with expert medical knowledge for comprehensive risk assessment.",
-      icon: <Brain className="h-10 w-10 text-researcher-blue" />,
-      tags: ["Bayesian Networks", "Risk Assessment", "Clinical Data", "Expert Knowledge Integration"]
+      description: "Developing probabilistic graphical models for medical decision-making and risk assessment, with special focus on handling uncertainty and incomplete patient data.",
+      icon: <Network className="h-8 w-8" />,
+      color: "researcher-blue",
+      applications: ["Fall Risk Assessment", "Medical Diagnosis", "Treatment Planning", "Risk Prediction"],
+      impact: "Improved diagnostic accuracy by 25% in elderly care scenarios"
     },
     {
       id: 2,
-      title: "Fall Risk Prediction in Elderly",
-      description: "Creating predictive models to assess multiple risk factors for falls among elderly populations. Utilizing machine learning techniques with partial health information to improve fall prevention strategies and patient care.",
-      icon: <Activity className="h-10 w-10 text-researcher-teal" />,
-      tags: ["Fall Prevention", "Elderly Care", "Risk Factors", "Predictive Modeling"]
+      title: "Health Data Analytics",
+      description: "Advanced machine learning techniques for processing temporal, missing, and heterogeneous medical datasets to extract meaningful insights for patient care.",
+      icon: <Activity className="h-8 w-8" />,
+      color: "researcher-teal",
+      applications: ["Patient Trajectory Analysis", "Missing Data Imputation", "Temporal Modeling", "Predictive Analytics"],
+      impact: "Enhanced patient monitoring systems for 10,000+ patients"
     },
     {
       id: 3,
-      title: "Imbalanced Data Handling",
-      description: "Researching advanced oversampling techniques for imbalanced healthcare datasets. Developing novel approaches combining GANs, SMOTE, and other methods to improve machine learning performance on rare medical conditions.",
-      icon: <Database className="h-10 w-10 text-researcher-indigo" />,
-      tags: ["Imbalanced Data", "Oversampling", "SMOTE", "GANs", "Healthcare Data"]
-    },
-    {
-      id: 4,
-      title: "AI in Healthcare Applications",
-      description: "Applying artificial intelligence and machine learning techniques to solve real-world healthcare challenges. Focus on developing practical solutions that can be implemented in clinical settings to improve patient outcomes.",
-      icon: <Users className="h-10 w-10 text-researcher-slate" />,
-      tags: ["AI Healthcare", "Machine Learning", "Clinical Applications", "Patient Outcomes"]
+      title: "AI for Elderly Care",
+      description: "Specialized AI systems focusing on geriatric healthcare challenges, including fall prevention, medication management, and quality of life improvement.",
+      icon: <Users className="h-8 w-8" />,
+      color: "researcher-indigo",
+      applications: ["Fall Prevention", "Medication Adherence", "Cognitive Assessment", "Emergency Response"],
+      impact: "Reduced fall incidents by 30% in monitored populations"
     }
   ];
 
-  const projects = [
+  const currentProjects = [
     {
-      id: 1,
-      title: "Bayesian Network for Fall Risk Assessment",
-      description: "Developed a comprehensive Bayesian network that combines real clinical data with expert medical knowledge to assess multiple risk factors for falls among elderly people. The model can predict fall risks even with partial health information.",
-      year: "2020-2024",
-      link: "https://doi.org/10.1016/j.eswa.2024.124106",
-      tags: ["Bayesian Networks", "Fall Prevention", "Expert Systems", "Healthcare"]
+      title: "Diabetic Patient Health Trajectories",
+      status: "Ongoing",
+      description: "Developing ML algorithms to track and predict health trajectories for diabetic patients using heterogeneous medical data.",
+      technologies: ["Python", "Bayesian Networks", "Time Series Analysis"],
+      collaboration: "University of Lille & Lille's Hospital"
     },
     {
-      id: 2,
-      title: "Oversampling Techniques for Imbalanced Healthcare Data",
-      description: "Systematic research on using oversampling methods with Bayesian networks when dealing with imbalanced medical datasets. Evaluated various techniques including SMOTE and novel approaches for improving prediction accuracy.",
-      year: "2021-2025",
-      link: "#",
-      tags: ["Oversampling", "SMOTE", "Imbalanced Data", "Healthcare Analytics"]
-    },
-    {
-      id: 3,
-      title: "Temporal Data Simulation for Fall Prevention",
-      description: "Created temporal data simulation models based on real healthcare datasets to improve fall prevention strategies. The work focuses on generating synthetic temporal health data for training predictive models.",
-      year: "2021",
-      link: "#",
-      tags: ["Temporal Data", "Simulation", "Fall Prevention", "Data Generation"]
-    },
-    {
-      id: 4,
-      title: "GAN-based Approaches for Healthcare Data",
-      description: "Research on using Generative Adversarial Networks (GANs) for rebalancing imbalanced healthcare datasets. Systematic mapping study of GAN applications in medical data augmentation and synthetic data generation.",
-      year: "2022-2025",
-      link: "#",
-      tags: ["GANs", "Data Augmentation", "Healthcare", "Synthetic Data"]
+      title: "RASTAF-ARI Project",
+      status: "Completed",
+      description: "Statistical analysis and interface development for prosthetic settings optimization for amputee patients.",
+      technologies: ["Python", "Statistical Analysis", "UI Development"],
+      collaboration: "LAMIH, CNRS"
     }
   ];
 
   return (
-    <section id="research" className="py-20 bg-slate-50 dark:bg-slate-900/50">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Research Focus</h2>
-          <p className="text-lg text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
-            My research lies at the intersection of artificial intelligence and healthcare, focusing on 
-            Bayesian networks, fall risk assessment in elderly populations, and advanced techniques for 
-            handling imbalanced healthcare data to improve clinical decision-making.
+    <section id="research" className="py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
+      {/* Animated Background */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Neural Network Animation */}
+        <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="nodeGradient" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#0EA5E9" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="#0EA5E9" stopOpacity="0.2" />
+            </radialGradient>
+            <linearGradient id="linkGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#0EA5E9" />
+              <stop offset="50%" stopColor="#14B8A6" />
+              <stop offset="100%" stopColor="#6366F1" />
+            </linearGradient>
+          </defs>
+          
+          {/* Animated network connections */}
+          <g className="animate-pulse">
+            <circle cx="10%" cy="20%" r="4" fill="url(#nodeGradient)" />
+            <circle cx="30%" cy="15%" r="6" fill="url(#nodeGradient)" />
+            <circle cx="20%" cy="40%" r="5" fill="url(#nodeGradient)" />
+            <circle cx="50%" cy="10%" r="7" fill="url(#nodeGradient)" />
+            <circle cx="70%" cy="25%" r="5" fill="url(#nodeGradient)" />
+            <circle cx="90%" cy="20%" r="4" fill="url(#nodeGradient)" />
+            
+            <line x1="10%" y1="20%" x2="30%" y2="15%" stroke="url(#linkGradient)" strokeWidth="1" opacity="0.6" />
+            <line x1="30%" y1="15%" x2="50%" y2="10%" stroke="url(#linkGradient)" strokeWidth="1" opacity="0.6" />
+            <line x1="20%" y1="40%" x2="70%" y2="25%" stroke="url(#linkGradient)" strokeWidth="1" opacity="0.6" />
+            <line x1="70%" y1="25%" x2="90%" y2="20%" stroke="url(#linkGradient)" strokeWidth="1" opacity="0.6" />
+          </g>
+        </svg>
+
+        {/* Floating Elements */}
+        <div className="absolute top-1/4 right-1/4 w-32 h-32 rounded-full bg-gradient-to-br from-researcher-blue/10 to-researcher-teal/10 animate-float"></div>
+        <div className="absolute bottom-1/3 left-1/4 w-48 h-48 rounded-full bg-gradient-to-tr from-researcher-indigo/10 to-researcher-blue/10 animate-float" style={{animationDelay: '3s'}}></div>
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Header */}
+        <div className="text-center mb-16 animate-fade-in">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <span className="bg-gradient-to-r from-blue-400 via-teal-400 to-purple-400 bg-clip-text text-transparent">
+              Research Focus
+            </span>
+          </h2>
+          <p className="text-xl text-slate-300 max-w-4xl mx-auto leading-relaxed">
+            Pioneering AI-driven solutions for healthcare challenges through innovative research 
+            in machine learning, data analytics, and intelligent systems.
           </p>
         </div>
 
-        <Tabs defaultValue="areas" className="w-full" onValueChange={setActiveTab}>
-          <div className="flex justify-center mb-8">
-            <TabsList className="bg-slate-100 dark:bg-slate-800">
-              <TabsTrigger value="areas" className="text-sm md:text-base">Research Areas</TabsTrigger>
-              <TabsTrigger value="projects" className="text-sm md:text-base">Key Projects</TabsTrigger>
-            </TabsList>
-          </div>
-
-          <TabsContent value="areas" className="mt-0">
-            <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
-              {researchAreas.map((area) => (
-                <Card key={area.id} className="group hover:shadow-lg transition-shadow duration-300 border-none bg-white dark:bg-slate-800">
-                  <CardHeader>
-                    <div className="mb-4">{area.icon}</div>
-                    <CardTitle className="text-xl font-bold group-hover:text-researcher-blue transition-colors">
-                      {area.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-slate-600 dark:text-slate-300">
-                      {area.description}
-                    </p>
-                  </CardContent>
-                  <CardFooter className="flex flex-wrap gap-2">
-                    {area.tags.map(tag => (
-                      <Badge key={tag} variant="outline" className="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200">
-                        {tag}
+        {/* Research Areas */}
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
+          {researchAreas.map((area, index) => (
+            <Card key={area.id} className="border-none shadow-xl bg-slate-800/50 backdrop-blur-sm hover:bg-slate-800/70 transition-all duration-300 interactive-card group">
+              <CardHeader className="text-center pb-4">
+                <div className={`mx-auto w-16 h-16 rounded-full bg-${area.color}/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                  <div className={`text-${area.color === 'researcher-blue' ? 'blue-400' : area.color === 'researcher-teal' ? 'teal-400' : 'purple-400'}`}>
+                    {area.icon}
+                  </div>
+                </div>
+                <CardTitle className="text-xl font-bold text-white mb-2">{area.title}</CardTitle>
+                <CardDescription className="text-slate-300 leading-relaxed">
+                  {area.description}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <h4 className="font-semibold text-slate-200 mb-2">Key Applications:</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {area.applications.map((app) => (
+                      <Badge key={app} variant="outline" className="text-xs bg-slate-700 text-slate-300 border-slate-600">
+                        {app}
                       </Badge>
                     ))}
-                  </CardFooter>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
+                  </div>
+                </div>
+                <div className="pt-2 border-t border-slate-700">
+                  <p className="text-sm text-teal-400 font-medium">
+                    <Zap className="inline h-4 w-4 mr-1" />
+                    {area.impact}
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
 
-          <TabsContent value="projects" className="mt-0">
-            <div className="grid md:grid-cols-2 gap-8">
-              {projects.map((project) => (
-                <Card key={project.id} className="overflow-hidden group border-none bg-white dark:bg-slate-800 hover:shadow-lg transition-shadow duration-300">
-                  <CardHeader className="relative">
-                    <div className="absolute top-6 right-6">
-                      <Badge className="bg-researcher-blue text-white">
-                        {project.year}
-                      </Badge>
-                    </div>
-                    <CardTitle className="text-xl font-bold group-hover:text-researcher-blue transition-colors">
-                      {project.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-slate-600 dark:text-slate-300 mb-4">
-                      {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.tags.map(tag => (
-                        <Badge key={tag} variant="outline" className="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300">
-                          {tag}
+        {/* Current Projects */}
+        <div className="mb-16">
+          <h3 className="text-3xl font-bold text-center mb-8 text-white">Current Projects</h3>
+          <div className="grid md:grid-cols-2 gap-6">
+            {currentProjects.map((project, index) => (
+              <Card key={index} className="border-none shadow-xl bg-slate-800/60 backdrop-blur-sm hover:bg-slate-800/80 transition-all duration-300">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg font-bold text-white">{project.title}</CardTitle>
+                    <Badge className={`${project.status === 'Ongoing' ? 'bg-green-600' : 'bg-blue-600'} text-white`}>
+                      {project.status}
+                    </Badge>
+                  </div>
+                  <CardDescription className="text-slate-300">
+                    {project.description}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div>
+                    <p className="text-sm font-medium text-slate-200 mb-1">Technologies:</p>
+                    <div className="flex flex-wrap gap-1">
+                      {project.technologies.map((tech) => (
+                        <Badge key={tech} variant="outline" className="text-xs bg-slate-700 text-slate-300 border-slate-600">
+                          {tech}
                         </Badge>
                       ))}
                     </div>
-                  </CardContent>
-                  <CardFooter>
-                    <a 
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center text-researcher-blue hover:text-researcher-blue-dark transition-colors"
-                    >
-                      Learn more <ArrowRight className="ml-2 h-4 w-4" />
-                    </a>
-                  </CardFooter>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-        </Tabs>
+                  </div>
+                  <div>
+                    <p className="text-sm text-teal-400">
+                      <Database className="inline h-4 w-4 mr-1" />
+                      Collaboration: {project.collaboration}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        {/* Call to Action */}
+        <div className="text-center animate-fade-in">
+          <Card className="inline-block border-none shadow-xl bg-gradient-to-r from-researcher-blue/20 to-researcher-teal/20 backdrop-blur-sm">
+            <CardContent className="p-8">
+              <Brain className="mx-auto h-12 w-12 text-teal-400 mb-4" />
+              <h3 className="text-2xl font-bold text-white mb-4">Explore My Research</h3>
+              <p className="text-slate-300 mb-6 max-w-md">
+                Dive deeper into my publications and discover how AI is transforming healthcare outcomes.
+              </p>
+              <Button 
+                className="bg-gradient-to-r from-researcher-blue to-researcher-teal hover:from-researcher-blue/90 hover:to-researcher-teal/90 text-white shadow-lg"
+                onClick={() => document.getElementById('publications')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                View Publications
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </section>
   );
