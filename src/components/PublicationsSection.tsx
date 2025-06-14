@@ -12,6 +12,7 @@ interface Publication {
   journal: string;
   year: number;
   link: string;
+  doi?: string;
   type: 'Journal' | 'Conference' | 'Book Chapter';
   category: 'AI' | 'Healthcare' | 'Bayesian' | 'Data Analysis';
 }
@@ -58,7 +59,8 @@ const PublicationsSection: React.FC = () => {
       authors: "G. Sihag, V. Delcroix, E. Grislin-Le Strugeon, X. Siebert, S. Piechowiak, and F. Puisieux",
       journal: "Expert Systems with Applications, p. 124106",
       year: 2024,
-      link: "#",
+      link: "https://doi.org/10.1016/j.eswa.2024.124106",
+      doi: "10.1016/j.eswa.2024.124106",
       type: 'Journal',
       category: 'Healthcare'
     },
@@ -68,7 +70,8 @@ const PublicationsSection: React.FC = () => {
       authors: "G. Sihag, V. Delcroix, E. Grislin-Le Strugeon, et al.",
       journal: "Computer Methods and Programs in Biomedicine Update, vol. 1, p. 100035",
       year: 2021,
-      link: "#",
+      link: "https://doi.org/10.1016/j.cmpbup.2021.100035",
+      doi: "10.1016/j.cmpbup.2021.100035",
       type: 'Journal',
       category: 'Healthcare'
     },
@@ -119,7 +122,8 @@ const PublicationsSection: React.FC = () => {
       authors: "G. Sihag, V. Delcroix, E. Grislin, X. Siebert, S. Piechowiak, and F. Puisieux",
       journal: "2020 IEEE Globecom Workshops, IEEE, pp. 1–6",
       year: 2020,
-      link: "#",
+      link: "https://doi.org/10.1109/GCWkshps50303.2020.9367420",
+      doi: "10.1109/GCWkshps50303.2020.9367420",
       type: 'Conference',
       category: 'Healthcare'
     },
@@ -217,8 +221,10 @@ const PublicationsSection: React.FC = () => {
                     </div>
                     <h3 className="text-lg font-semibold mb-2">
                       <a 
-                        href={publication.link}
-                        className="hover:text-researcher-blue transition-colors flex items-center gap-2"
+                        href={publication.doi ? `https://doi.org/${publication.doi}` : publication.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-researcher-blue transition-colors flex items-center gap-2 cursor-pointer"
                       >
                         {publication.title}
                         <ExternalLink className="h-4 w-4" />
@@ -228,6 +234,11 @@ const PublicationsSection: React.FC = () => {
                     <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
                       {publication.journal}
                     </p>
+                    {publication.doi && (
+                      <p className="text-xs text-slate-400 mt-1">
+                        DOI: {publication.doi}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -244,7 +255,11 @@ const PublicationsSection: React.FC = () => {
 
         {filteredPublications.length > 0 && (
           <div className="mt-10 text-center">
-            <Button variant="outline" className="hover:bg-slate-100">
+            <Button 
+              variant="outline" 
+              className="hover:bg-slate-100"
+              onClick={() => window.open('https://scholar.google.com/citations?user=YOUR_ID', '_blank')}
+            >
               View Google Scholar Profile
               <ExternalLink className="ml-2 h-4 w-4" />
             </Button>

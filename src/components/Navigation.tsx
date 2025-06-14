@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, Download } from 'lucide-react';
+import { Menu, X, Download, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -28,6 +28,11 @@ const Navigation: React.FC = () => {
     { name: "Awards", href: "#awards" },
     { name: "Contact", href: "#contact" }
   ];
+
+  const handleCVDownload = () => {
+    // Replace with actual CV URL
+    window.open('/path-to-your-cv.pdf', '_blank');
+  };
 
   return (
     <header 
@@ -57,7 +62,11 @@ const Navigation: React.FC = () => {
               {item.name}
             </a>
           ))}
-          <Button size="sm" className="ml-2 bg-researcher-blue hover:bg-researcher-blue-dark text-white">
+          <Button 
+            size="sm" 
+            className="ml-2 bg-researcher-blue hover:bg-researcher-blue-dark text-white"
+            onClick={handleCVDownload}
+          >
             <Download className="mr-2 h-4 w-4" />
             CV
           </Button>
@@ -95,6 +104,10 @@ const Navigation: React.FC = () => {
             <Button 
               size="sm" 
               className="w-full bg-researcher-blue hover:bg-researcher-blue-dark text-white mt-2"
+              onClick={() => {
+                handleCVDownload();
+                setIsMobileMenuOpen(false);
+              }}
             >
               <Download className="mr-2 h-4 w-4" />
               Download CV
