@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 const Navigation: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,9 +22,9 @@ const Navigation: React.FC = () => {
 
   const navigationItems = [
     { name: "Home", href: "/" },
-    { name: "About", href: "#about" },
-    { name: "Research", href: "#research" },
-    { name: "Publications", href: "#publications" },
+    { name: "About", href: "/about" },
+    { name: "Research", href: "/research" },
+    { name: "Publications", href: "/publications" },
     { name: "Contact", href: "#contact" }
   ];
 
@@ -34,6 +35,8 @@ const Navigation: React.FC = () => {
     link.download = 'Gulshan_Sihag_CV.pdf';
     link.click();
   };
+
+  const isHomePage = location.pathname === '/';
 
   return (
     <header 
@@ -61,13 +64,28 @@ const Navigation: React.FC = () => {
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center space-x-1">
           {navigationItems.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              className="px-3 py-2 text-sm rounded-md font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-            >
-              {item.name}
-            </a>
+            item.href.startsWith('#') && !isHomePage ? (
+              <Link
+                key={item.name}
+                to={`/${item.href}`}
+                className="px-3 py-2 text-sm rounded-md font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              >
+                {item.name}
+              </Link>
+            ) : (
+              <Link
+                key={item.name}
+                to={item.href}
+                className={cn(
+                  "px-3 py-2 text-sm rounded-md font-medium transition-colors",
+                  location.pathname === item.href 
+                    ? "bg-researcher-blue/10 text-researcher-blue" 
+                    : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                )}
+              >
+                {item.name}
+              </Link>
+            )
           ))}
           <Button 
             size="sm" 
@@ -99,14 +117,30 @@ const Navigation: React.FC = () => {
         <nav className="lg:hidden bg-white dark:bg-slate-900 shadow-lg border-t">
           <div className="px-4 py-2 space-y-1">
             {navigationItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="block px-3 py-2 text-base font-medium rounded-md text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {item.name}
-              </a>
+              item.href.startsWith('#') && !isHomePage ? (
+                <Link
+                  key={item.name}
+                  to={`/${item.href}`}
+                  className="block px-3 py-2 text-base font-medium rounded-md text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ) : (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={cn(
+                    "block px-3 py-2 text-base font-medium rounded-md",
+                    location.pathname === item.href 
+                      ? "bg-researcher-blue/10 text-researcher-blue" 
+                      : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                  )}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              )
             ))}
             <Button 
               size="sm" 

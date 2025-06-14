@@ -2,9 +2,9 @@
 import React, { useEffect } from 'react';
 import Layout from '@/components/Layout';
 import HeroSection from '@/components/HeroSection';
-import AboutSection from '@/components/AboutSection';
-import ResearchSection from '@/components/ResearchSection';
-import PublicationsSection from '@/components/PublicationsSection';
+import AboutSectionPreview from '@/components/AboutSectionPreview';
+import ResearchSectionPreview from '@/components/ResearchSectionPreview';
+import PublicationsSectionPreview from '@/components/PublicationsSectionPreview';
 import ExperienceSection from '@/components/ExperienceSection';
 import EducationSection from '@/components/EducationSection';
 import SkillsSection from '@/components/SkillsSection';
@@ -41,9 +41,9 @@ const Index: React.FC = () => {
   return (
     <Layout className="bg-white dark:bg-slate-950">
       <HeroSection />
-      <AboutSection />
-      <ResearchSection />
-      <PublicationsSection />
+      <AboutSectionPreview />
+      <ResearchSectionPreview />
+      <PublicationsSectionPreview />
       <ExperienceSection />
       <EducationSection />
       <SkillsSection />
