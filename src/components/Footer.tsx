@@ -8,16 +8,13 @@ const Footer: React.FC = () => {
   return (
     <footer className="bg-slate-900 text-white py-12">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="col-span-1 md:col-span-2">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
             <h3 className="text-xl font-bold bg-gradient-to-r from-researcher-blue to-researcher-teal bg-clip-text text-transparent mb-4">
               Dr. Gulshan Sihag
             </h3>
-            <p className="text-slate-300 mb-4 max-w-md">
+            <p className="text-slate-300 mb-4">
               Advancing healthcare through innovative AI research and interdisciplinary collaboration.
-            </p>
-            <p className="text-slate-400 text-sm">
-              © {currentYear} Dr. Gulshan Sihag. All rights reserved.
             </p>
           </div>
           
@@ -25,7 +22,7 @@ const Footer: React.FC = () => {
             <h4 className="font-semibold text-lg mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <a href="/" className="text-slate-300 hover:text-white transition-colors">Home</a>
+                <a href="#about" className="text-slate-300 hover:text-white transition-colors">About</a>
               </li>
               <li>
                 <a href="#research" className="text-slate-300 hover:text-white transition-colors">Research</a>
@@ -40,7 +37,7 @@ const Footer: React.FC = () => {
           </div>
           
           <div>
-            <h4 className="font-semibold text-lg mb-4">Resources</h4>
+            <h4 className="font-semibold text-lg mb-4">Connect</h4>
             <ul className="space-y-2">
               <li>
                 <a 
@@ -93,10 +90,10 @@ const Footer: React.FC = () => {
         <div className="mt-12 pt-6 border-t border-slate-800 text-center text-sm text-slate-400">
           <p className="flex items-center justify-center gap-2">
             Made with 
-            <Heart className="h-4 w-4 text-red-500 animate-pulse" fill="currentColor" />
+            <Heart className="h-4 w-4 text-red-500 animate-ping" fill="currentColor" />
             by Gulshan Sihag
           </p>
-          <p className="mt-2">Created with React and Tailwind CSS</p>
+          <p className="mt-2">© {currentYear} Dr. Gulshan Sihag. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -1,8 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, Download, ExternalLink } from 'lucide-react';
+import { Menu, X, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
 
 const Navigation: React.FC = () => {
@@ -20,18 +21,18 @@ const Navigation: React.FC = () => {
 
   const navigationItems = [
     { name: "Home", href: "/" },
-    { name: "Experience", href: "#experience" },
-    { name: "Education", href: "#education" },
-    { name: "Skills", href: "#skills" },
+    { name: "About", href: "#about" },
     { name: "Research", href: "#research" },
     { name: "Publications", href: "#publications" },
-    { name: "Awards", href: "#awards" },
     { name: "Contact", href: "#contact" }
   ];
 
   const handleCVDownload = () => {
-    // Replace with actual CV URL
-    window.open('/path-to-your-cv.pdf', '_blank');
+    // Create a downloadable CV link - replace with actual CV file path
+    const link = document.createElement('a');
+    link.href = '/gulshan-sihag-cv.pdf'; // You'll need to add your CV file to the public folder
+    link.download = 'Gulshan_Sihag_CV.pdf';
+    link.click();
   };
 
   return (
@@ -39,16 +40,22 @@ const Navigation: React.FC = () => {
       className={cn(
         "fixed w-full z-50 transition-all duration-300",
         isScrolled 
-          ? "bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm shadow-md py-2" 
-          : "bg-transparent py-4"
+          ? "bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm shadow-md py-2" 
+          : "bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm py-3"
       )}
     >
       <div className="container mx-auto px-4 flex items-center justify-between">
         <Link 
           to="/" 
-          className="text-2xl font-bold bg-gradient-to-r from-researcher-blue to-researcher-teal bg-clip-text text-transparent"
+          className="flex items-center space-x-3"
         >
-          Dr. Gulshan Sihag
+          <Avatar className="h-10 w-10">
+            <AvatarImage src="/placeholder.svg" alt="Dr. Gulshan Sihag" />
+            <AvatarFallback className="bg-researcher-blue text-white font-semibold">GS</AvatarFallback>
+          </Avatar>
+          <span className="text-xl font-bold bg-gradient-to-r from-researcher-blue to-researcher-teal bg-clip-text text-transparent">
+            Dr. Gulshan Sihag
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -64,11 +71,11 @@ const Navigation: React.FC = () => {
           ))}
           <Button 
             size="sm" 
-            className="ml-2 bg-researcher-blue hover:bg-researcher-blue-dark text-white"
+            className="ml-4 bg-researcher-blue hover:bg-researcher-blue-dark text-white"
             onClick={handleCVDownload}
           >
             <Download className="mr-2 h-4 w-4" />
-            CV
+            Download CV
           </Button>
         </nav>
 
@@ -89,7 +96,7 @@ const Navigation: React.FC = () => {
 
       {/* Mobile Navigation */}
       {isMobileMenuOpen && (
-        <nav className="lg:hidden bg-white dark:bg-slate-900 shadow-lg">
+        <nav className="lg:hidden bg-white dark:bg-slate-900 shadow-lg border-t">
           <div className="px-4 py-2 space-y-1">
             {navigationItems.map((item) => (
               <a

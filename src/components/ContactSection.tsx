@@ -1,200 +1,178 @@
 
 import React from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { toast } from 'sonner';
-import { Mail, MapPin, MessageSquare, Phone, Linkedin } from 'lucide-react';
+import { Mail, MapPin, Phone, Send } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { useToast } from '@/hooks/use-toast';
 
-const formSchema = z.object({
-  name: z.string().min(2, {
-    message: "Name must be at least 2 characters.",
-  }),
-  email: z.string().email({
-    message: "Please enter a valid email address.",
-  }),
-  subject: z.string().min(5, {
-    message: "Subject must be at least 5 characters.",
-  }),
-  message: z.string().min(10, {
-    message: "Message must be at least 10 characters.",
-  }),
-});
+interface ContactForm {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
 
 const ContactSection: React.FC = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      subject: "",
-      message: "",
-    },
-  });
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<ContactForm>();
+  const { toast } = useToast();
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    toast.success("Message sent successfully! I'll get back to you soon.");
-    form.reset();
-  }
+  const onSubmit = (data: ContactForm) => {
+    // Simulate form submission
+    console.log('Contact form submitted:', data);
+    toast({
+      title: "Message sent!",
+      description: "Thank you for your message. I'll get back to you soon.",
+    });
+    reset();
+  };
 
   return (
-    <section id="contact" className="py-20 bg-slate-50 dark:bg-slate-900/50">
+    <section id="contact" className="py-20 bg-white dark:bg-slate-950">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
-          <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-            Interested in collaboration, research opportunities, or have questions about my work? 
-            Feel free to reach out for academic discussions or professional inquiries.
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-slate-800 dark:text-white mb-4">Get In Touch</h2>
+          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+            Interested in collaboration or have questions about my research? I'd love to hear from you.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          <div className="bg-white dark:bg-slate-800 p-8 rounded-lg shadow-sm">
-            <h3 className="text-xl font-bold mb-6">Send Me a Message</h3>
-            
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Your name" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input placeholder="you@example.com" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="subject"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Subject</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Research collaboration, inquiry, etc." {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="message"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Message</FormLabel>
-                      <FormControl>
-                        <Textarea 
-                          placeholder="Your message..." 
-                          className="min-h-[120px]" 
-                          {...field} 
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button 
-                  type="submit" 
-                  className="w-full bg-researcher-blue hover:bg-researcher-blue-dark"
-                >
-                  Send Message
-                </Button>
-              </form>
-            </Form>
-          </div>
-
-          <div className="bg-gradient-to-br from-researcher-blue to-researcher-indigo text-white p-8 rounded-lg shadow-sm flex flex-col justify-between">
-            <div>
-              <h3 className="text-xl font-bold mb-6">Contact Information</h3>
-              
-              <div className="space-y-6">
-                <div className="flex items-start">
-                  <Mail className="h-6 w-6 mr-4 mt-1" />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+          {/* Contact Information */}
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-researcher-blue">Contact Information</CardTitle>
+                <CardDescription>
+                  Reach out through any of these channels
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <Mail className="h-5 w-5 text-researcher-blue" />
                   <div>
-                    <h4 className="font-medium">Email</h4>
-                    <p className="mt-1 opacity-90">gulshansihag01@gmail.com</p>
+                    <p className="font-medium">Email</p>
+                    <a 
+                      href="mailto:gulshansihag01@gmail.com" 
+                      className="text-slate-600 dark:text-slate-300 hover:text-researcher-blue transition-colors"
+                    >
+                      gulshansihag01@gmail.com
+                    </a>
                   </div>
                 </div>
                 
-                <div className="flex items-start">
-                  <Phone className="h-6 w-6 mr-4 mt-1" />
+                <div className="flex items-center gap-3">
+                  <Phone className="h-5 w-5 text-researcher-teal" />
                   <div>
-                    <h4 className="font-medium">Phone</h4>
-                    <p className="mt-1 opacity-90">+33635567595</p>
+                    <p className="font-medium">Phone</p>
+                    <span className="text-slate-600 dark:text-slate-300">+33635567595</span>
                   </div>
                 </div>
+                
+                <div className="flex items-center gap-3">
+                  <MapPin className="h-5 w-5 text-researcher-indigo" />
+                  <div>
+                    <p className="font-medium">Location</p>
+                    <span className="text-slate-600 dark:text-slate-300">Valenciennes, France</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
 
-                <div className="flex items-start">
-                  <MapPin className="h-6 w-6 mr-4 mt-1" />
-                  <div>
-                    <h4 className="font-medium">Current Location</h4>
-                    <p className="mt-1 opacity-90">
-                      LAMIH, CNRS UMR 8201<br />
-                      Université Polytechnique Hauts-de-France<br />
-                      France
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <Linkedin className="h-6 w-6 mr-4 mt-1" />
-                  <div>
-                    <h4 className="font-medium">LinkedIn</h4>
-                    <p className="mt-1 opacity-90">/gulshansihag/</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <MessageSquare className="h-6 w-6 mr-4 mt-1" />
-                  <div>
-                    <h4 className="font-medium">Research Interests</h4>
-                    <p className="mt-1 opacity-90">
-                      AI in Healthcare • Bayesian Networks<br />
-                      Health Data Analytics • Fall Risk Assessment<br />
-                      Machine Learning for Medical Applications
-                    </p>
-                  </div>
-                </div>
+            <div className="text-center">
+              <p className="text-slate-600 dark:text-slate-300 mb-4">
+                Find me on professional networks
+              </p>
+              <div className="flex justify-center gap-4">
+                <Button variant="outline" asChild>
+                  <a href="https://linkedin.com/in/gulshansihag" target="_blank" rel="noopener noreferrer">
+                    LinkedIn
+                  </a>
+                </Button>
+                <Button variant="outline" asChild>
+                  <a href="https://scholar.google.com/citations?user=YOUR_ID" target="_blank" rel="noopener noreferrer">
+                    Google Scholar
+                  </a>
+                </Button>
+                <Button variant="outline" asChild>
+                  <a href="https://github.com/gulshansihag" target="_blank" rel="noopener noreferrer">
+                    GitHub
+                  </a>
+                </Button>
               </div>
             </div>
-            
-            <div className="mt-8">
-              <h4 className="font-medium mb-4">Academic Collaboration</h4>
-              <p className="text-sm opacity-90">
-                I welcome opportunities for research collaboration, joint publications, 
-                and academic partnerships in AI applications for healthcare.
-              </p>
-            </div>
           </div>
+
+          {/* Contact Form */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-researcher-blue">Send a Message</CardTitle>
+              <CardDescription>
+                I'll respond as soon as possible
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                <div>
+                  <Input
+                    placeholder="Your Name"
+                    {...register('name', { required: 'Name is required' })}
+                  />
+                  {errors.name && (
+                    <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+                  )}
+                </div>
+
+                <div>
+                  <Input
+                    type="email"
+                    placeholder="Your Email"
+                    {...register('email', { 
+                      required: 'Email is required',
+                      pattern: {
+                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                        message: 'Invalid email address'
+                      }
+                    })}
+                  />
+                  {errors.email && (
+                    <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+                  )}
+                </div>
+
+                <div>
+                  <Input
+                    placeholder="Subject"
+                    {...register('subject', { required: 'Subject is required' })}
+                  />
+                  {errors.subject && (
+                    <p className="text-red-500 text-sm mt-1">{errors.subject.message}</p>
+                  )}
+                </div>
+
+                <div>
+                  <Textarea
+                    placeholder="Your Message"
+                    rows={5}
+                    {...register('message', { required: 'Message is required' })}
+                  />
+                  {errors.message && (
+                    <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>
+                  )}
+                </div>
+
+                <Button 
+                  type="submit" 
+                  className="w-full bg-researcher-blue hover:bg-researcher-blue-dark text-white"
+                >
+                  <Send className="mr-2 h-4 w-4" />
+                  Send Message
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </section>
