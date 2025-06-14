@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { FileText, Search } from 'lucide-react';
+import { FileText, Search, ExternalLink } from 'lucide-react';
 
 interface Publication {
   id: number;
@@ -12,8 +12,8 @@ interface Publication {
   journal: string;
   year: number;
   link: string;
-  citations: number;
-  category: 'AI' | 'Healthcare' | 'Ethics' | 'Methods';
+  type: 'Journal' | 'Conference' | 'Book Chapter';
+  category: 'AI' | 'Healthcare' | 'Bayesian' | 'Data Analysis';
 }
 
 const PublicationsSection: React.FC = () => {
@@ -21,73 +21,126 @@ const PublicationsSection: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const publications: Publication[] = [
+    // Journal Articles
     {
       id: 1,
-      title: "Deep Learning for Early Detection of Alzheimer's Disease Using MRI Scans",
-      authors: "Smith J., Johnson A., Williams R.",
-      journal: "Journal of Medical Imaging",
-      year: 2023,
+      title: "Using oversampling with a bayesian network when data is imbalanced: A systematic review",
+      authors: "G. Sihag, V. Delcroix, and E. Grislin-Le Strugeon",
+      journal: "Information and Software Technology (under review)",
+      year: 2025,
       link: "#",
-      citations: 42,
-      category: 'AI'
+      type: 'Journal',
+      category: 'Bayesian'
     },
     {
       id: 2,
-      title: "Machine Learning Models for Predicting Patient Readmission Risk in Hospitals",
-      authors: "Smith J., Brown T., Garcia M.",
-      journal: "Healthcare Informatics Research",
-      year: 2022,
+      title: "Proxima-orion q-gaussian algorithm for synthetic oversampling of imbalanced dataset",
+      authors: "P. Yadav, G. Sihag, and V. Vijay",
+      journal: "IEEE Transactions on Knowledge and Data Engineering (under review)",
+      year: 2025,
       link: "#",
-      citations: 36,
-      category: 'Healthcare'
+      type: 'Journal',
+      category: 'Data Analysis'
     },
     {
       id: 3,
-      title: "Ethical Considerations in AI-Driven Clinical Decision Support Systems",
-      authors: "Smith J., Wilson L.",
-      journal: "Journal of Medical Ethics",
-      year: 2022,
+      title: "Rebalancing the scales with generative adversarial networks (gans): A systematic mapping",
+      authors: "P. Yadav, G. Sihag, and V. Vijay",
+      journal: "IEEE Transactions on Neural Networks and Learning Systems (under review)",
+      year: 2025,
       link: "#",
-      citations: 28,
-      category: 'Ethics'
-    },
-    {
-      id: 4,
-      title: "Novel Approaches to Feature Extraction from Electronic Health Records",
-      authors: "Smith J., Miller R., Thompson P.",
-      journal: "BMC Medical Informatics",
-      year: 2021,
-      link: "#",
-      citations: 53,
-      category: 'Methods'
-    },
-    {
-      id: 5,
-      title: "Comparing CNN and Transformer Models for Medical Image Classification",
-      authors: "Smith J., Lee K., Patel S.",
-      journal: "Nature Machine Intelligence",
-      year: 2023,
-      link: "#",
-      citations: 19,
+      type: 'Journal',
       category: 'AI'
     },
     {
-      id: 6,
-      title: "Privacy-Preserving Methods for Health Data Analysis using Federated Learning",
-      authors: "Smith J., Anderson H.",
-      journal: "Journal of the American Medical Informatics Association",
+      id: 4,
+      title: "Combining real data and expert knowledge to build a bayesian network—application to assess multiple risk factors for fall among elderly people",
+      authors: "G. Sihag, V. Delcroix, E. Grislin-Le Strugeon, X. Siebert, S. Piechowiak, and F. Puisieux",
+      journal: "Expert Systems with Applications, p. 124106",
+      year: 2024,
+      link: "#",
+      type: 'Journal',
+      category: 'Healthcare'
+    },
+    {
+      id: 5,
+      title: "Evaluation of risk factors for fall in elderly using bayesian networks: A case study",
+      authors: "G. Sihag, V. Delcroix, E. Grislin-Le Strugeon, et al.",
+      journal: "Computer Methods and Programs in Biomedicine Update, vol. 1, p. 100035",
       year: 2021,
       link: "#",
-      citations: 31,
-      category: 'Methods'
+      type: 'Journal',
+      category: 'Healthcare'
+    },
+    // Conference Proceedings
+    {
+      id: 6,
+      title: "Solar pv power generation forecasting using synergy of artificial intelligence and metaheuristics based approaches",
+      authors: "P. Yadav, G. Sihag, V. P. Singh, and V. Vijay",
+      journal: "International Advanced Computing Conference, Springer, pp. 210–225",
+      year: 2025,
+      link: "#",
+      type: 'Conference',
+      category: 'AI'
+    },
+    {
+      id: 7,
+      title: "Evaluation of risk factors for fall in elderly people from imbalanced data using the oversampling technique smote",
+      authors: "G. Sihag, P. Yadav, V. Delcroix, et al.",
+      journal: "ICT4AWE, pp. 50–58",
+      year: 2022,
+      link: "#",
+      type: 'Conference',
+      category: 'Healthcare'
+    },
+    {
+      id: 8,
+      title: "Prédiction des facteurs de risque de chute chez les personnes âgées à partir d'observations partielles à l'aide d'un réseau bayésien",
+      authors: "V. Delcroix, G. Sihag, E. Grislin-Le Strugeon, X. Siebert, and S. Piechowiak",
+      journal: "Colloque francophone sur la chute de la personne âgée",
+      year: 2021,
+      link: "#",
+      type: 'Conference',
+      category: 'Healthcare'
+    },
+    {
+      id: 9,
+      title: "Temporal data simulation based on a real data set for fall prevention",
+      authors: "G. Sihag, V. Delcroix, E. Grislin-Le Strugeon, X. Siebert, and S. Piechowiak",
+      journal: "10emes Journées Francophones sur les Réseaux Bayésiens et les Modèles Graphiques Probabilis",
+      year: 2021,
+      link: "#",
+      type: 'Conference',
+      category: 'Bayesian'
+    },
+    {
+      id: 10,
+      title: "Prediction of risk factors for fall using bayesian networks with partial health information",
+      authors: "G. Sihag, V. Delcroix, E. Grislin, X. Siebert, S. Piechowiak, and F. Puisieux",
+      journal: "2020 IEEE Globecom Workshops, IEEE, pp. 1–6",
+      year: 2020,
+      link: "#",
+      type: 'Conference',
+      category: 'Healthcare'
+    },
+    // Book Chapter
+    {
+      id: 11,
+      title: "Advantages of oversampling techniques: a case study in risk factors for fall prediction",
+      authors: "G. Sihag, P. Yadav, V. Vijay, et al.",
+      journal: "Book Chapter, pp. 56–78",
+      year: 2021,
+      link: "#",
+      type: 'Book Chapter',
+      category: 'Data Analysis'
     }
   ];
 
   const categories = [
     { name: 'AI', color: 'bg-researcher-blue' },
     { name: 'Healthcare', color: 'bg-researcher-teal' },
-    { name: 'Ethics', color: 'bg-researcher-indigo' },
-    { name: 'Methods', color: 'bg-researcher-slate' }
+    { name: 'Bayesian', color: 'bg-researcher-indigo' },
+    { name: 'Data Analysis', color: 'bg-researcher-slate' }
   ];
 
   const filteredPublications = publications.filter(pub => {
@@ -98,12 +151,13 @@ const PublicationsSection: React.FC = () => {
   });
 
   return (
-    <section id="publications" className="py-20">
+    <section id="publications" className="py-20 bg-slate-50 dark:bg-slate-900/50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Publications</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Research Publications</h2>
           <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-            Selected peer-reviewed articles published in leading journals and conference proceedings.
+            Peer-reviewed publications in leading journals and conferences focusing on 
+            AI applications in healthcare, Bayesian networks, and data analytics.
           </p>
         </div>
 
@@ -124,7 +178,7 @@ const PublicationsSection: React.FC = () => {
               onClick={() => setSelectedCategory(null)}
               size="sm"
             >
-              All
+              All ({publications.length})
             </Button>
             {categories.map(category => (
               <Button
@@ -134,7 +188,7 @@ const PublicationsSection: React.FC = () => {
                 size="sm"
                 className={selectedCategory === category.name ? category.color : ""}
               >
-                {category.name}
+                {category.name} ({publications.filter(p => p.category === category.name).length})
               </Button>
             ))}
           </div>
@@ -152,29 +206,28 @@ const PublicationsSection: React.FC = () => {
                     <FileText className="text-slate-500 dark:text-slate-400" />
                   </div>
                   <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
+                    <div className="flex items-center gap-2 mb-2">
                       <Badge className={`${categories.find(c => c.name === publication.category)?.color} text-white`}>
                         {publication.category}
+                      </Badge>
+                      <Badge variant="outline">
+                        {publication.type}
                       </Badge>
                       <span className="text-sm text-slate-500 dark:text-slate-400">{publication.year}</span>
                     </div>
                     <h3 className="text-lg font-semibold mb-2">
                       <a 
                         href={publication.link}
-                        className="hover:text-researcher-blue transition-colors"
+                        className="hover:text-researcher-blue transition-colors flex items-center gap-2"
                       >
                         {publication.title}
+                        <ExternalLink className="h-4 w-4" />
                       </a>
                     </h3>
                     <p className="text-slate-600 dark:text-slate-300 mb-2">{publication.authors}</p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium text-slate-500 dark:text-slate-400">
-                        {publication.journal}
-                      </span>
-                      <span className="text-sm font-medium">
-                        Citations: {publication.citations}
-                      </span>
-                    </div>
+                    <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                      {publication.journal}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -192,7 +245,8 @@ const PublicationsSection: React.FC = () => {
         {filteredPublications.length > 0 && (
           <div className="mt-10 text-center">
             <Button variant="outline" className="hover:bg-slate-100">
-              View All Publications
+              View Google Scholar Profile
+              <ExternalLink className="ml-2 h-4 w-4" />
             </Button>
           </div>
         )}

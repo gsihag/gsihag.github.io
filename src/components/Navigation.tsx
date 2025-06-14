@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -20,9 +20,12 @@ const Navigation: React.FC = () => {
 
   const navigationItems = [
     { name: "Home", href: "/" },
+    { name: "Experience", href: "#experience" },
+    { name: "Education", href: "#education" },
+    { name: "Skills", href: "#skills" },
     { name: "Research", href: "#research" },
     { name: "Publications", href: "#publications" },
-    { name: "CV", href: "#cv" },
+    { name: "Awards", href: "#awards" },
     { name: "Contact", href: "#contact" }
   ];
 
@@ -40,11 +43,11 @@ const Navigation: React.FC = () => {
           to="/" 
           className="text-2xl font-bold bg-gradient-to-r from-researcher-blue to-researcher-teal bg-clip-text text-transparent"
         >
-          Dr. Researcher
+          Dr. Gulshan Sihag
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-1">
+        <nav className="hidden lg:flex items-center space-x-1">
           {navigationItems.map((item) => (
             <a
               key={item.name}
@@ -55,7 +58,8 @@ const Navigation: React.FC = () => {
             </a>
           ))}
           <Button size="sm" className="ml-2 bg-researcher-blue hover:bg-researcher-blue-dark text-white">
-            Download CV
+            <Download className="mr-2 h-4 w-4" />
+            CV
           </Button>
         </nav>
 
@@ -63,7 +67,7 @@ const Navigation: React.FC = () => {
         <Button
           variant="ghost"
           size="sm"
-          className="md:hidden"
+          className="lg:hidden"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? (
@@ -76,7 +80,7 @@ const Navigation: React.FC = () => {
 
       {/* Mobile Navigation */}
       {isMobileMenuOpen && (
-        <nav className="md:hidden bg-white dark:bg-slate-900 shadow-lg">
+        <nav className="lg:hidden bg-white dark:bg-slate-900 shadow-lg">
           <div className="px-4 py-2 space-y-1">
             {navigationItems.map((item) => (
               <a
@@ -92,6 +96,7 @@ const Navigation: React.FC = () => {
               size="sm" 
               className="w-full bg-researcher-blue hover:bg-researcher-blue-dark text-white mt-2"
             >
+              <Download className="mr-2 h-4 w-4" />
               Download CV
             </Button>
           </div>

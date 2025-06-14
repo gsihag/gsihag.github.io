@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Download } from 'lucide-react';
 
 const HeroSection: React.FC = () => {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
@@ -40,24 +40,28 @@ const HeroSection: React.FC = () => {
       </div>
       
       <div className="container mx-auto px-4 z-10">
-        <div className="max-w-3xl">
+        <div className="max-w-4xl">
           <h1 className="mb-6 animate-fade-in">
-            <span className="block text-lg font-semibold text-researcher-blue mb-2">Dr. Jane Smith</span>
+            <span className="block text-lg font-semibold text-researcher-blue mb-2">Dr. Gulshan Sihag</span>
             <span className="block text-4xl md:text-5xl lg:text-6xl font-bold text-slate-800 dark:text-white">
-              Advancing Healthcare Through AI Research
+              AI in Healthcare Research
+            </span>
+            <span className="block text-2xl md:text-3xl text-slate-600 dark:text-slate-300 mt-2">
+              Post-Doctoral Researcher
             </span>
           </h1>
           
           <p className="text-xl text-slate-600 dark:text-slate-300 mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Postdoctoral Researcher specializing in the application of artificial 
-            intelligence and machine learning techniques to transform healthcare 
-            diagnostics, treatment planning, and patient outcomes.
+            Conducting comprehensive research on health data analytics, focusing on developing 
+            innovative methodologies for tracking and predicting patient's health trajectories 
+            using advanced machine learning algorithms and Bayesian networks.
           </p>
           
           <div className="flex flex-wrap gap-4 animate-fade-in" style={{ animationDelay: '0.4s' }}>
             <Button 
               className="bg-researcher-blue hover:bg-researcher-blue-dark text-white"
               size="lg"
+              onClick={() => document.getElementById('research')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Explore My Research
               <ArrowRight className="ml-2 h-4 w-4" />
@@ -66,24 +70,48 @@ const HeroSection: React.FC = () => {
               variant="outline" 
               size="lg" 
               className="border-researcher-blue text-researcher-blue hover:bg-researcher-blue/5"
+              onClick={() => document.getElementById('publications')?.scrollIntoView({ behavior: 'smooth' })}
             >
               View Publications
             </Button>
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="border-researcher-teal text-researcher-teal hover:bg-researcher-teal/5"
+            >
+              <Download className="mr-2 h-4 w-4" />
+              Download CV
+            </Button>
           </div>
           
-          <div className="mt-12 grid grid-cols-3 gap-4 animate-fade-in" style={{ animationDelay: '0.6s' }}>
+          <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 animate-fade-in" style={{ animationDelay: '0.6s' }}>
             <div className="text-center">
-              <p className="text-3xl font-bold text-researcher-blue">25+</p>
+              <p className="text-3xl font-bold text-researcher-blue">11+</p>
               <p className="text-sm text-slate-500 dark:text-slate-400">Publications</p>
             </div>
             <div className="text-center">
-              <p className="text-3xl font-bold text-researcher-teal">12</p>
-              <p className="text-sm text-slate-500 dark:text-slate-400">Research Projects</p>
+              <p className="text-3xl font-bold text-researcher-teal">3</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">Years Experience</p>
             </div>
             <div className="text-center">
-              <p className="text-3xl font-bold text-researcher-indigo">8</p>
-              <p className="text-sm text-slate-500 dark:text-slate-400">Collaborations</p>
+              <p className="text-3xl font-bold text-researcher-indigo">2</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">Degrees</p>
             </div>
+            <div className="text-center">
+              <p className="text-3xl font-bold text-slate-600">4</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">Languages</p>
+            </div>
+          </div>
+          
+          {/* Contact Info */}
+          <div className="mt-8 flex flex-wrap gap-6 text-sm text-slate-600 dark:text-slate-400 animate-fade-in" style={{ animationDelay: '0.8s' }}>
+            <a href="mailto:gulshansihag01@gmail.com" className="hover:text-researcher-blue transition-colors">
+              gulshansihag01@gmail.com
+            </a>
+            <span>+33635567595</span>
+            <a href="/gulshansihag/" className="hover:text-researcher-blue transition-colors">
+              LinkedIn Profile
+            </a>
           </div>
         </div>
       </div>

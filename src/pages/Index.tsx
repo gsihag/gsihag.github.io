@@ -2,8 +2,12 @@
 import React, { useEffect } from 'react';
 import Layout from '@/components/Layout';
 import HeroSection from '@/components/HeroSection';
+import ExperienceSection from '@/components/ExperienceSection';
+import EducationSection from '@/components/EducationSection';
+import SkillsSection from '@/components/SkillsSection';
 import ResearchSection from '@/components/ResearchSection';
 import PublicationsSection from '@/components/PublicationsSection';
+import AwardsSection from '@/components/AwardsSection';
 import ContactSection from '@/components/ContactSection';
 
 const Index: React.FC = () => {
@@ -29,8 +33,12 @@ const Index: React.FC = () => {
   return (
     <Layout className="bg-white dark:bg-slate-950">
       <HeroSection />
+      <ExperienceSection />
+      <EducationSection />
+      <SkillsSection />
       <ResearchSection />
       <PublicationsSection />
+      <AwardsSection />
       <ContactSection />
     </Layout>
   );
